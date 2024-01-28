@@ -1,65 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-
-/*
-* Header
-* - Logo
-* - Nav Items
-* Body
-* - Search
-* - Restaurant Container
-*   - Restaurant Card
-*     - Restaurant Name, Rating
-*     - Dish Name, Price
-*     - Time
-* Footer
-* - Copyright
-* - Links 
-* - Address
-* - Contact
-*/
-
-const Header = () => (
-    <div className="header">
-      <div className="logo-container">
-        <img 
-          className="logo"
-          src={require('./Images/Annam.gif')}
-        />
-      </div>
-      <div className="nav-items">
-        <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
-        </ul>
-      </div>
-    </div>
-);
-
-const RestaurantCard = (props) => {
-  const {cardData} = props;
-  const {name, cloudinaryImageId, avgRating, sla, cuisines, costForTwo} = cardData?.info;
-  const {slaString} = sla;
-  return (
-    <div className="res-card">
-      <img className="food-img" src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId}`}></img>
-      <h2 className="restaurant-name">{name}</h2>
-      <div className="restaurant-name">
-        <span className="cardleft rating">⭐ {avgRating}</span>
-        <span className="cardright">{slaString}</span>
-      </div>
-      <div className="cuisinesprice">
-        <span className="cardleft">{cuisines.join(', ')}</span>
-        <span className="cardright">{costForTwo}</span>
-      </div>
-    </div>
-  );
-};
-
-const data = [
+export const data = [
   {
   "info": {
   "id": "117397",
@@ -723,29 +662,80 @@ const data = [
   }
   ];
 
-const Body = () => {
-  return (
-    <div className="body">
-      <div className="search">Search </div>
-      <div className="restaurant-container">
-        {
-          data.map(restaurant => <RestaurantCard key={restaurant.info.id} cardData={restaurant}/>)
-        }
-        {/* <RestaurantCard cardData={data[0]} /> */}
-        {/* <RestaurantCard cardData={data[1]} /> */}
-      </div>
-    </div>
-  )
-};
+export const data1 = [
+    {
+    "info": {
+    "id": "117397",
+    "name": "La Pino'z Pizza",
+    "cloudinaryImageId": "pft1dcdx8udfepmcnuty",
+    "locality": "Sion",
+    "areaName": "Sion",
+    "costForTwo": "₹550 for two",
+    "cuisines": [
+    "Pizzas",
+    "Pastas",
+    "Italian",
+    "Desserts",
+    "Beverages"
+    ],
+    "avgRating": 4.3,
+    "parentId": "4961",
+    "avgRatingString": "4.3",
+    "totalRatingsString": "10K+",
+    "sla": {
+    "deliveryTime": 26,
+    "lastMileTravel": 4.2,
+    "serviceability": "SERVICEABLE",
+    "slaString": "25-30 mins",
+    "lastMileTravelString": "4.2 km",
+    "iconType": "ICON_TYPE_EMPTY"
+    },
+    "availability": {
+    "nextCloseTime": "2024-02-03 00:00:00",
+    "opened": true
+    },
+    "badges": {},
+    "isOpen": true,
+    "type": "F",
+    "badgesV2": {
+    "entityBadges": {
+    "imageBased": {},
+    "textBased": {},
+    "textExtendedBadges": {}
+    }
+    },
+    "aggregatedDiscountInfoV3": {
+    "header": "50% OFF",
+    "subHeader": "UPTO ₹100"
+    },
+    "orderabilityCommunication": {
+    "title": {},
+    "subTitle": {},
+    "message": {},
+    "customIcon": {}
+    },
+    "differentiatedUi": {
+    "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+    "differentiatedUiMediaDetails": {
+    "mediaType": "ADS_MEDIA_ENUM_IMAGE",
+    "lottie": {},
+    "video": {}
+    }
+    },
+    "reviewsSummary": {},
+    "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+    "restaurantOfferPresentationInfo": {}
+    },
+    "analytics": {
+    "context": "seo-data-bd33cf88-5b18-4e5d-815d-5702b531fafe"
+    },
+    "cta": {
+    "link": "https://www.swiggy.com/restaurants/la-pinoz-pizza-sion-mumbai-117397",
+    "text": "RESTAURANT_MENU",
+    "type": "WEBLINK"
+    },
+    "widgetId": "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo"
+    }
+  ];
 
-const AppLayout = () => (
-   <div className="app">
-    <Header />
-    <Body />
-  </div>
-);
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-root.render(<AppLayout />);
-
+  // export {data, data1}
