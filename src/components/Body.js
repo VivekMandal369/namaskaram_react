@@ -8,6 +8,13 @@ const Body = () => {
   const [restaurantList, setRestaurantList] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [sortBtnName, setSortBtnName] = useState('Fast Delivery');
+  const [costRangeBtn, setCostRangeBtn] = useState('Rs. 300 - Rs. 600');
+  const [foodType, setFoodType] = useState('Pure Veg');
+  const [costLimit, setCostLimit] = useState('Less than Rs. 300');
+  const [btnStatusCr, setBtnStatusCr] = useState('deactive');
+  const [btnStatusPv, setBtnStatusPv] = useState('deactive');
+  const [btnStatusFd, setBtnStatusFd] = useState('deactive');
+  const [btnStatusCl, setBtnStatusCl] = useState('deactive');
   const [search, setSearch] = useState([]);
 
   useEffect(() => {
@@ -71,37 +78,66 @@ const Body = () => {
               <option value="3.5">3.5</option>
               <option value="3">3</option>
           </select>
-          <button type="button" className="filters inline-block mt-1 p-2 border"
+          <button type="button" name={costLimit} id={btnStatusCl} className="filters inline-block mt-1 p-2 border"
             onClick={() => {
-              machedName = restaurantList.filter((res) => {
-                let match = res.info.costForTwo.match(/\d+/);
-                let cost = parseInt(match[0], 10);
-                return cost < 300;
-              });
-              setFilteredRestaurant(machedName);
+
+              costLimit == 'Less than Rs. 300' ? setCostLimit('Less than Rs. 300 X'):setCostLimit('Less than Rs. 300');
+              btnStatusCl  == 'deactive' ? setBtnStatusCl("cl-active"):setBtnStatusCl("deactive");
+
+              
+              if(costLimit == 'Less than Rs. 300') {
+                machedName = restaurantList.filter((res) => {
+                  let match = res.info.costForTwo.match(/\d+/);
+                  let cost = parseInt(match[0], 10);
+                  return cost < 300;
+                });
+                setFilteredRestaurant(machedName);
+              } else {
+                unSort();
+              }
+
             }}
-          >Less than Rs. 300</button>
-          <button type="button" className="filters inline-block mt-1 p-2 border"
+          >{costLimit}</button>
+          <button type="button" name={costRangeBtn} id={btnStatusCr} className="filters inline-block mt-1 p-2 border"
             onClick={() => {
-              machedName = restaurantList.filter((res) => {
-                let match = res.info.costForTwo.match(/\d+/);
-                let cost = parseInt(match[0], 10);
-                return (cost >= 300 && cost <= 600) ;
-              });
-              setFilteredRestaurant(machedName);
+
+              costRangeBtn == 'Rs. 300 - Rs. 600' ? setCostRangeBtn('Rs. 300 - Rs. 600 X'):setCostRangeBtn('Rs. 300 - Rs. 600');
+              btnStatusCr  == 'deactive' ? setBtnStatusCr("cr-active"):setBtnStatusCr("deactive");
+
+              
+              if(costRangeBtn == 'Rs. 300 - Rs. 600') {
+                machedName = restaurantList.filter((res) => {
+                  let match = res.info.costForTwo.match(/\d+/);
+                  let cost = parseInt(match[0], 10);
+                  return (cost >= 300 && cost <= 600) ;
+                });
+                setFilteredRestaurant(machedName);
+              } else {
+                unSort();
+              }
+
             }}
-          >Rs. 300 - Rs. 600</button>
-          <button type="button" className="filters inline-block mt-1 p-2 border"
+          >{costRangeBtn}</button>
+          <button type="button" name={foodType} id={btnStatusPv} className="filters inline-block mt-1 p-2 border"
             onClick={() => {
-              machedName = restaurantList.filter((res) => {
-                return res?.info?.veg === true ;
-              });
-              setFilteredRestaurant(machedName);
+
+              foodType == 'Pure Veg' ? setFoodType('Pure Veg X'):setFoodType('Pure Veg');
+              btnStatusPv  == 'deactive' ? setBtnStatusPv("pv-active"):setBtnStatusPv("deactive");
+              if(foodType == 'Pure Veg') {
+                machedName = restaurantList.filter((res) => {
+                  return res?.info?.veg === true ;
+                });
+                setFilteredRestaurant(machedName);
+              } else {
+                unSort();
+              }
+
             }}
-          >Pure Veg</button>
-          <button type="button" name={sortBtnName} className="filters inline-block mt-1 p-2 border"
+          >{foodType}</button>
+          <button type="button" name={sortBtnName} id={btnStatusFd} className="filters inline-block mt-1 p-2 border"
             onClick={() => {
-              sortBtnName == 'Fast Delivery' ? setSortBtnName('Fast Delivery '):setSortBtnName('Fast Delivery');
+              sortBtnName == 'Fast Delivery' ? setSortBtnName('Fast Delivery X'):setSortBtnName('Fast Delivery');
+              btnStatusFd  == 'deactive' ? setBtnStatusFd("fd-active"):setBtnStatusFd("deactive");
               if(sortBtnName == 'Fast Delivery') {
                   sortByTime();
                 } else {
