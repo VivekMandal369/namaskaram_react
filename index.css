@@ -212,3 +212,26 @@ ul > li {
   text-align: center;
   margin: calc(10% - 20px);
 }
+
+/* Back Button CSS */
+
+.backBtn {
+  /* background-color: #aca2a2; */
+  color: #fff;
+}
+
+.backBtn > a {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 10px 20px;
+  box-shadow: 0 0 20px #252525;
+  color: #000;
+  font-size: 18px;
+}
+
+/* Restuarant Menu Body */
+
+.upper-layout {
+  margin: 25px;
+  width: calc(60% - 20%);
+}
