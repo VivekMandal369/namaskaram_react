@@ -81,6 +81,12 @@ const RestaurantMenu = () => {
           <Recommended  key={resMenu?.card?.info?.id} menu={resMenu?.card}/>  
         ))
       }
+
+      {/* {
+        filteredRestaurantMenu.map(resMenu => {
+          <Recommended  key={resMenu?.card?.info?.id} menu={resMenu?.card}/>
+        })
+      } */}
     </>
   );
 };

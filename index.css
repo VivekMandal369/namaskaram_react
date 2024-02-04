@@ -183,7 +183,9 @@ ul > li {
 .filters {
   border-radius: 20px;
   text-align: center;
-  box-shadow: 0px 1px 10px 1px #adabab;
+  /* box-shadow: 0px 1px 10px 1px #adabab; */
+  box-shadow: 0 2px 5px 0px #00000080;
+
   /* width: 100%; */
   margin-left: 20px;
 }
@@ -234,4 +236,12 @@ ul > li {
 .upper-layout {
   margin: 25px;
   width: calc(60% - 20%);
+}
+
+.about {
+  width:400px;
+  height: auto;
+  box-shadow: 0px 2px 10px 0px #00000080;
+  padding: 20px;
+  margin: 10px;
 }
