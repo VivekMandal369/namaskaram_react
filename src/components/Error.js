@@ -1,15 +1,19 @@
-import { useRouteError } from "react-router-dom";
+import { useNavigate, useRouteError } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Error = () => {
-  
+  const navigate = useNavigate();
   const err = useRouteError();
-  console.log(err);
+
+  const back = () => {
+    navigate(-1);
+  };
+  // console.log(err);
   return (
       <div className="error">
         <h1>{err.status}</h1>
         <h1>{err.statusText}</h1>
-        <h2 className="backBtn"><a href="/">Back</a></h2>
+        <button className="backBtn" onClick={back}>Back To Previous Page</button>
       </div>
   );
 };

@@ -218,17 +218,23 @@ ul > li {
 /* Back Button CSS */
 
 .backBtn {
-  /* background-color: #aca2a2; */
-  color: #fff;
+    /* color: #fff; */
+    font-size: 20px;
+    padding: 8px 25px;
+    /* border: 1px solid; */
+    box-shadow: 0px 2px 5px 0px #10101085;
+    transition: background-color 1s;
+    /* transition: color 1s; */
 }
 
-.backBtn > a {
-  background-color: #fff;
-  border-radius: 15px;
-  padding: 10px 20px;
-  box-shadow: 0 0 20px #252525;
-  color: #000;
-  font-size: 18px;
+/* .backBtn {
+  transition: background-color 1s;
+} */
+
+/* Change background color on hover */
+.backBtn:hover {
+  background-color: red;
+  /* color: #fff; */
 }
 
 /* Restuarant Menu Body */

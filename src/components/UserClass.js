@@ -4,30 +4,35 @@ class UserClass extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
-      count2: 1
+      userInfo: {
+        name: 'test',
+        bio: 'bio test',
+        company: 'company',
+        // avatar_url: 'avatar_url'
+      }
     };
   };
 
   // componentDidMount is used for APIs call same as useEffect in functional component
-  componentDidMount() {
-
+  async componentDidMount() {
+    const userData = await fetch('https://api.github.com/users/itsvivekmandal');
+    const userInfo = await userData.json();
+    console.log(userInfo);
+    this.setState({
+      userInfo: userInfo
+    });
   };
 
   render() {
+
+    const {name, avatar_url, bio, company} = this.state.userInfo;
+
     return (
       <div className="about">
-        <h1>count - {this.state.count}</h1>
-        <h1>count2 - {this.state.count2}</h1>
-        <button onClick={()=>{
-          this.setState({
-            count: this.state.count + 1,
-            count2: this.state.count2 + 1
-          });
-        }}>Update Count</button>
-        <h1>Name: {this.name}</h1>
-        <h1>Age: {this.age}</h1>
-        <h1>Profession: {this.profession}</h1>
+        <img src={avatar_url} alt="avtar" />
+        <h1>Name: {name}</h1>
+        <h1>Profession: {bio}</h1>
+        <h1>company: {company}</h1>
       </div>
     )
   };

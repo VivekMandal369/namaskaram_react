@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import {productImgPath} from "../utils/constants";
+import useRestaurantMenu from "../utils/custom_hooks/useRestaurantMenu";
+import useRestaurantDetails from "../utils/custom_hooks/useRestaurantDetails";
 
 
 const RestuarantDetail = (props) => {
@@ -48,28 +50,13 @@ const Recommended = (props) => {
 };
 
 const RestaurantMenu = () => {
-
-  const [restaurantDetails, setRestaurantDetails] = useState([]);
-  const [restaurantMenu, setRestaurantMenu] = useState([]);
-  const [filteredRestaurantMenu, setFilteredRestaurantMenu] = useState([]);
-  const {id} = useParams();
   
-  useEffect(() => {
-    fetchData();
-  }, [])
-
-  const fetchData = async () => {
-    const url = `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0759837&lng=72.8776559&restaurantId=${id}&catalog_qa=undefined&submitAction=ENTER`;
-    const restaurantData = await fetch(url);
-    const resMenuData = await restaurantData.json();
-    // console.log(resMenuData?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards[0]);
-
-    setRestaurantDetails(resMenuData?.data?.cards[0]?.card?.card?.info);
-    setRestaurantMenu(resMenuData?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards); 
-    setFilteredRestaurantMenu(resMenuData?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards); 
-  };
-
-  return restaurantDetails.length === 0 ? (<Shimmer />) : (
+  const {id} = useParams();
+  const restaurantDetails = useRestaurantDetails(id);
+  // console.log(restaurantDetails);
+  const filteredRestaurantMenu = useRestaurantMenu(id);
+  
+  return (restaurantDetails === undefined || restaurantDetails.length === 0) ? (<Shimmer />) : (
     <>
       <RestuarantDetail details={restaurantDetails}/>
       <div>
@@ -81,12 +68,6 @@ const RestaurantMenu = () => {
           <Recommended  key={resMenu?.card?.info?.id} menu={resMenu?.card}/>  
         ))
       }
-
-      {/* {
-        filteredRestaurantMenu.map(resMenu => {
-          <Recommended  key={resMenu?.card?.info?.id} menu={resMenu?.card}/>
-        })
-      } */}
     </>
   );
 };
