@@ -50,16 +50,21 @@ const Body = () => {
     // setFilteredRestaurant([].concat(restaurantList));
   }
 
+  const btnStatusCrCol = btnStatusCr == 'deactive' ? '' : 'bg-gray-200';
+  const btnStatusPvCol = btnStatusPv == 'deactive' ? '' : 'bg-gray-200';
+  const btnStatusFdCol = btnStatusFd == 'deactive' ? '' : 'bg-gray-200';
+  const btnStatusClCol = btnStatusCl == 'deactive' ? '' : 'bg-gray-200';
+
   return restaurantList.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="heading">
-        <h1>Restaurants with online food delivery</h1>
+      <div className="p-4 m-2">
+        <h1 className="text-[30px] font-bold">Restaurants with online food delivery</h1>
       </div>
-      <div className="filter flex items-center">
+      <div className="flex p-4 m-4">
         <div className="flex items-center">
-          <input type="text" className="filters inline-block mt-1 p-2 border"
+          <input type="text" className="shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200"
             placeholder="Search food by name"
             onKeyUp={(e) => {
               let newChar = e.target.value.toLowerCase();
@@ -67,7 +72,7 @@ const Body = () => {
               setFilteredRestaurant(machedName);
             }}
           />
-          <select id="options" name="options" className="filters mt-1 p-2 bg-white" onChange={(e) => {
+          <select id="options" name="options" className="shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200" onChange={(e) => {
             topRatedList = restaurantList.filter((res) => res.info.avgRating > e.target.value);
             setFilteredRestaurant(topRatedList);
           }}>
@@ -79,7 +84,7 @@ const Body = () => {
               <option value="3.5">3.5</option>
               <option value="3">3</option>
           </select>
-          <button type="button" name={costLimit} id={btnStatusCl} className="filters inline-block mt-1 p-2 border"
+          <button type="button" name={costLimit} className={`${btnStatusClCol} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
             onClick={() => {
 
               costLimit == 'Less than Rs. 300' ? setCostLimit('Less than Rs. 300 X'):setCostLimit('Less than Rs. 300');
@@ -99,7 +104,7 @@ const Body = () => {
 
             }}
           >{costLimit}</button>
-          <button type="button" name={costRangeBtn} id={btnStatusCr} className="filters inline-block mt-1 p-2 border"
+          <button type="button" name={costRangeBtn} className={`${btnStatusCrCol} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
             onClick={() => {
 
               costRangeBtn == 'Rs. 300 - Rs. 600' ? setCostRangeBtn('Rs. 300 - Rs. 600 X'):setCostRangeBtn('Rs. 300 - Rs. 600');
@@ -119,7 +124,7 @@ const Body = () => {
 
             }}
           >{costRangeBtn}</button>
-          <button type="button" name={foodType} id={btnStatusPv} className="filters inline-block mt-1 p-2 border"
+          <button type="button" name={foodType} className={`${btnStatusPvCol} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
             onClick={() => {
 
               foodType == 'Pure Veg' ? setFoodType('Pure Veg X'):setFoodType('Pure Veg');
@@ -135,7 +140,7 @@ const Body = () => {
 
             }}
           >{foodType}</button>
-          <button type="button" name={sortBtnName} id={btnStatusFd} className="filters inline-block mt-1 p-2 border"
+          <button type="button" name={sortBtnName} className={`${btnStatusFdCol} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
             onClick={() => {
               sortBtnName == 'Fast Delivery' ? setSortBtnName('Fast Delivery X'):setSortBtnName('Fast Delivery');
               btnStatusFd  == 'deactive' ? setBtnStatusFd("fd-active"):setBtnStatusFd("deactive");
@@ -149,7 +154,7 @@ const Body = () => {
           >{sortBtnName}</button>
         </div>
       </div>
-      <div className="restaurant-container">
+      <div className="grid grid-cols-5 gap-2 px-4">
         {filteredRestaurant.map((restaurant) => (
           <RestaurantCard key={restaurant.info.id} cardData={restaurant} />
         ))}
