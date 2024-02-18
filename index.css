@@ -20,5 +20,5 @@
 }
 
 .shine-animation {
-  animation: shine 2s infinite linear;
+  animation: shine 0.5s infinite linear;
 }
