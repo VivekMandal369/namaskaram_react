@@ -8,6 +8,7 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import Error from "./components/Error";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Shimmer from "../src/components/Shimmer";
+import Dish from "./components/Dish";
 
 const About = lazy(() => import("./components/About"));
 
@@ -39,6 +40,10 @@ const appRouter = createBrowserRouter([
       {
         path:'/restaurant/:id',
         element: <RestaurantMenu />
+      },
+      {
+        path: '/dish/:id',
+        element: <Dish/>
       }
     ],
     errorElement: <Error />

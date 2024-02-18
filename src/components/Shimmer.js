@@ -1,124 +1,124 @@
 const Shimmer = () => {
   return (
-    <div className="restaurant-container">
-      <div className="shimmer-card">
-        <img className="shimmer-img shimmer-color"></img>
-        <div className="res-name shimmer-color"></div>
-        <div className="simmerdiv">
-          <div className="simmer-left res-name shimmer-color"></div>
-          <div className="simmer-right res-name shimmer-color"></div>
+    <div className="m-4 p-4 grid grid-cols-5">
+      <div className="w-72 h-96 my-4 border bg-gray-200 shine-animation">
+        <img className="w-60 h-48 m-6 bg-white rounded-lg"></img>
+        <div className="m-6 p-2 bg-white"></div>
+        <div className="m-6 flex justify-between">
+          <div className="py-2 w-24 bg-white"></div>
+          <div className="py-2 w-24 bg-white"></div>
         </div>
-        <div className="simmerdiv2">
-          <div className="res-name shimmer-color"></div>
-          <div className="res-name shimmer-color"></div>
-        </div>
-      </div>
-      <div className="shimmer-card">
-        <img className="shimmer-img shimmer-color"></img>
-        <div className="res-name shimmer-color"></div>
-        <div className="simmerdiv">
-          <div className="simmer-left res-name shimmer-color"></div>
-          <div className="simmer-right res-name shimmer-color"></div>
-        </div>
-        <div className="simmerdiv2">
-          <div className="simmer res-name shimmer-color"></div>
-          <div className="simmer res-name shimmer-color"></div>
+        <div className="m-6 grid">
+          <div className="my-1 p-2 bg-white"></div>
+          <div className="my-1 p-2 bg-white"></div>
         </div>
       </div>
-      <div className="shimmer-card">
-        <img className="shimmer-img shimmer-color"></img>
-        <div className="res-name shimmer-color"></div>
-        <div className="simmerdiv">
-          <div className="simmer-left res-name shimmer-color"></div>
-          <div className="simmer-right res-name shimmer-color"></div>
+      <div className="w-72 h-96 my-4 border bg-gray-200 shine-animation">
+        <img className="w-60 h-48 m-6 bg-white rounded-lg"></img>
+        <div className="m-6 p-2 bg-white"></div>
+        <div className="m-6 flex justify-between">
+          <div className="py-2 w-24 bg-white"></div>
+          <div className="py-2 w-24 bg-white"></div>
         </div>
-        <div className="simmerdiv2">
-          <div className="simmer res-name shimmer-color"></div>
-          <div className="res-name shimmer-color"></div>
-        </div>
-      </div>
-      <div className="shimmer-card">
-        <img className="shimmer-img shimmer-color"></img>
-        <div className="res-name shimmer-color"></div>
-        <div className="simmerdiv">
-          <div className="simmer-left res-name shimmer-color"></div>
-          <div className="simmer-right res-name shimmer-color"></div>
-        </div>
-        <div className="simmerdiv2">
-          <div className="res-name shimmer-color"></div>
-          <div className="res-name shimmer-color"></div>
+        <div className="m-6 grid">
+          <div className="my-1 p-2 bg-white"></div>
+          <div className="my-1 p-2 bg-white"></div>
         </div>
       </div>
-      <div className="shimmer-card">
-        <img className="shimmer-img shimmer-color"></img>
-        <div className="res-name shimmer-color"></div>
-        <div className="simmerdiv">
-          <div className="simmer-left res-name shimmer-color"></div>
-          <div className="simmer-right res-name shimmer-color"></div>
+      <div className="w-72 h-96 my-4 border bg-gray-200 shine-animation">
+        <img className="w-60 h-48 m-6 bg-white rounded-lg"></img>
+        <div className="m-6 p-2 bg-white"></div>
+        <div className="m-6 flex justify-between">
+          <div className="py-2 w-24 bg-white"></div>
+          <div className="py-2 w-24 bg-white"></div>
         </div>
-        <div className="simmerdiv2">
-          <div className="res-name shimmer-color"></div>
-          <div className="res-name shimmer-color"></div>
-        </div>
-      </div>
-      <div className="shimmer-card">
-        <img className="shimmer-img shimmer-color"></img>
-        <div className="res-name shimmer-color"></div>
-        <div className="simmerdiv">
-          <div className="simmer-left res-name shimmer-color"></div>
-          <div className="simmer-right res-name shimmer-color"></div>
-        </div>
-        <div className="simmerdiv2">
-          <div className="res-name shimmer-color"></div>
-          <div className="res-name shimmer-color"></div>
+        <div className="m-6 grid">
+          <div className="my-1 p-2 bg-white"></div>
+          <div className="my-1 p-2 bg-white"></div>
         </div>
       </div>
-      <div className="shimmer-card">
-        <img className="shimmer-img shimmer-color"></img>
-        <div className="res-name shimmer-color"></div>
-        <div className="simmerdiv">
-          <div className="simmer-left res-name shimmer-color"></div>
-          <div className="simmer-right res-name shimmer-color"></div>
+      <div className="w-72 h-96 my-4 border bg-gray-200 shine-animation">
+        <img className="w-60 h-48 m-6 bg-white rounded-lg"></img>
+        <div className="m-6 p-2 bg-white"></div>
+        <div className="m-6 flex justify-between">
+          <div className="py-2 w-24 bg-white"></div>
+          <div className="py-2 w-24 bg-white"></div>
         </div>
-        <div className="simmerdiv2">
-          <div className="res-name shimmer-color"></div>
-          <div className="res-name shimmer-color"></div>
-        </div>
-      </div>
-      <div className="shimmer-card">
-        <img className="shimmer-img shimmer-color"></img>
-        <div className="res-name shimmer-color"></div>
-        <div className="simmerdiv">
-          <div className="simmer-left res-name shimmer-color"></div>
-          <div className="simmer-right res-name shimmer-color"></div>
-        </div>
-        <div className="simmerdiv2">
-          <div className="res-name shimmer-color"></div>
-          <div className="res-name shimmer-color"></div>
+        <div className="m-6 grid">
+          <div className="my-1 p-2 bg-white"></div>
+          <div className="my-1 p-2 bg-white"></div>
         </div>
       </div>
-      <div className="shimmer-card">
-        <img className="shimmer-img shimmer-color"></img>
-        <div className="res-name shimmer-color"></div>
-        <div className="simmerdiv">
-          <div className="simmer-left res-name shimmer-color"></div>
-          <div className="simmer-right res-name shimmer-color"></div>
+      <div className="w-72 h-96 my-4 border bg-gray-200 shine-animation">
+        <img className="w-60 h-48 m-6 bg-white rounded-lg"></img>
+        <div className="m-6 p-2 bg-white"></div>
+        <div className="m-6 flex justify-between">
+          <div className="py-2 w-24 bg-white"></div>
+          <div className="py-2 w-24 bg-white"></div>
         </div>
-        <div className="simmerdiv2">
-          <div className="res-name shimmer-color"></div>
-          <div className="res-name shimmer-color"></div>
+        <div className="m-6 grid">
+          <div className="my-1 p-2 bg-white"></div>
+          <div className="my-1 p-2 bg-white"></div>
         </div>
       </div>
-      <div className="shimmer-card">
-        <img className="shimmer-img shimmer-color"></img>
-        <div className="res-name shimmer-color"></div>
-        <div className="simmerdiv">
-          <div className="simmer-left res-name shimmer-color"></div>
-          <div className="simmer-right res-name shimmer-color"></div>
+      <div className="w-72 h-96 my-4 border bg-gray-200 shine-animation">
+        <img className="w-60 h-48 m-6 bg-white rounded-lg"></img>
+        <div className="m-6 p-2 bg-white"></div>
+        <div className="m-6 flex justify-between">
+          <div className="py-2 w-24 bg-white"></div>
+          <div className="py-2 w-24 bg-white"></div>
         </div>
-        <div className="simmerdiv2">
-          <div className="res-name shimmer-color"></div>
-          <div className="res-name shimmer-color"></div>
+        <div className="m-6 grid">
+          <div className="my-1 p-2 bg-white"></div>
+          <div className="my-1 p-2 bg-white"></div>
+        </div>
+      </div>
+      <div className="w-72 h-96 my-4 border bg-gray-200 shine-animation">
+        <img className="w-60 h-48 m-6 bg-white rounded-lg"></img>
+        <div className="m-6 p-2 bg-white"></div>
+        <div className="m-6 flex justify-between">
+          <div className="py-2 w-24 bg-white"></div>
+          <div className="py-2 w-24 bg-white"></div>
+        </div>
+        <div className="m-6 grid">
+          <div className="my-1 p-2 bg-white"></div>
+          <div className="my-1 p-2 bg-white"></div>
+        </div>
+      </div>
+      <div className="w-72 h-96 my-4 border bg-gray-200 shine-animation">
+        <img className="w-60 h-48 m-6 bg-white rounded-lg"></img>
+        <div className="m-6 p-2 bg-white"></div>
+        <div className="m-6 flex justify-between">
+          <div className="py-2 w-24 bg-white"></div>
+          <div className="py-2 w-24 bg-white"></div>
+        </div>
+        <div className="m-6 grid">
+          <div className="my-1 p-2 bg-white"></div>
+          <div className="my-1 p-2 bg-white"></div>
+        </div>
+      </div>
+      <div className="w-72 h-96 my-4 border bg-gray-200 shine-animation">
+        <img className="w-60 h-48 m-6 bg-white rounded-lg"></img>
+        <div className="m-6 p-2 bg-white"></div>
+        <div className="m-6 flex justify-between">
+          <div className="py-2 w-24 bg-white"></div>
+          <div className="py-2 w-24 bg-white"></div>
+        </div>
+        <div className="m-6 grid">
+          <div className="my-1 p-2 bg-white"></div>
+          <div className="my-1 p-2 bg-white"></div>
+        </div>
+      </div>
+      <div className="w-72 h-96 my-4 border bg-gray-200 shine-animation">
+        <img className="w-60 h-48 m-6 bg-white rounded-lg"></img>
+        <div className="m-6 p-2 bg-white"></div>
+        <div className="m-6 flex justify-between">
+          <div className="py-2 w-24 bg-white"></div>
+          <div className="py-2 w-24 bg-white"></div>
+        </div>
+        <div className="m-6 grid">
+          <div className="my-1 p-2 bg-white"></div>
+          <div className="my-1 p-2 bg-white"></div>
         </div>
       </div>
     </div>

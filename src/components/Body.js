@@ -1,11 +1,15 @@
-import RestaurantCard from "./RestuarantCard";
+import RestaurantCard, { RestaurantCardWithRating }from "./RestuarantCard";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import OnMind from "./OnMind";
+import useRestaurant from "../utils/custom_hooks/useRestaurant";
 // import {data} from '../utils/mockData';
 
 const Body = () => {
   let machedName = [];
+  
+  const Restaurants = useRestaurant([]);
   const [restaurantList, setRestaurantList] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [sortBtnName, setSortBtnName] = useState('Fast Delivery');
@@ -17,25 +21,24 @@ const Body = () => {
   const [btnStatusFd, setBtnStatusFd] = useState('deactive');
   const [btnStatusCl, setBtnStatusCl] = useState('deactive');
   const [search, setSearch] = useState([]);
+  const [onMind, setOnMind] = useState([]);
+  const [heading, setHeading] = useState([]);
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-
-    const json = await data.json();
-    // console.log(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
-    setRestaurantList(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-  };
+    const keys = Object.keys(Restaurants);
+    
+    if (keys.length > 0) {
+      setRestaurantList(
+        Restaurants?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      );
+      setFilteredRestaurant(
+        Restaurants?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      );
+    
+      setOnMind(Restaurants?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info);
+      setHeading(Restaurants?.data?.cards[0]?.card?.card?.header?.title)
+    }
+  }, [Restaurants]);
 
   const sortByTime = () => {
     // let sortedListByTime = restaurantList;
@@ -50,16 +53,55 @@ const Body = () => {
     // setFilteredRestaurant([].concat(restaurantList));
   }
 
+  const TopRatedRestaurant = RestaurantCardWithRating(RestaurantCard);
+
   const btnStatusCrCol = btnStatusCr == 'deactive' ? '' : 'bg-gray-200';
   const btnStatusPvCol = btnStatusPv == 'deactive' ? '' : 'bg-gray-200';
   const btnStatusFdCol = btnStatusFd == 'deactive' ? '' : 'bg-gray-200';
   const btnStatusClCol = btnStatusCl == 'deactive' ? '' : 'bg-gray-200';
 
-  return restaurantList.length === 0 ? (
+  /////////////// scroll ///////////////
+  
+  const scroll = (name) => {
+    const distance = name === 'scrollForward' ? '400':'-400';
+    const container = document.getElementById('scrollContainer');
+    container.scrollBy({
+      left: distance, // Adjust as needed for scroll distance
+      behavior: 'smooth'
+    });
+  };
+
+  /////////////// scroll ///////////////
+
+  return restaurantList.length ===  0 ? (
     <Shimmer />
   ) : (
     <div className="body">
+      <div className="p-4 m-2 flex justify-between">
+        <div className="text-[30px] font-bold">{heading}</div>
+        <div className="">
+          <button name="scrollBackward" className="p-2 text-[18px] font-bold m-2 rounded-full shadow-lg border-2" onClick={() => scroll('scrollBackward')}>
+            <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button className="p-2 text-[18px] font-bold m-2 rounded-full shadow-lg border-2" onClick={() => scroll('scrollForward')}>
+            <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
       <div className="p-4 m-2">
+        <div id="scrollContainer" className="overflow-x-auto flex scroll-hide">
+          {
+            onMind.map(ele => (
+              <OnMind key={ele.id} data={ele} />
+            ))
+          }
+        </div>
+      </div>
+     <div className="p-4 m-2">
         <h1 className="text-[30px] font-bold">Restaurants with online food delivery</h1>
       </div>
       <div className="flex p-4 m-4">
@@ -155,8 +197,14 @@ const Body = () => {
         </div>
       </div>
       <div className="grid grid-cols-5 gap-2 px-4">
-        {filteredRestaurant.map((restaurant) => (
+        {/* {filteredRestaurant.map((restaurant) => (
           <RestaurantCard key={restaurant.info.id} cardData={restaurant} />
+        ))} */}
+
+        {filteredRestaurant.map((restaurant) => (
+          (restaurant.info.totalRatingsString.includes('K') && restaurant.info.totalRatingsString.slice(0, -2)) > 5 ?
+           (<TopRatedRestaurant key={restaurant.info.id} cardData={restaurant} />):
+           (<RestaurantCard key={restaurant.info.id} cardData={restaurant} />)
         ))}
       </div>
     </div>

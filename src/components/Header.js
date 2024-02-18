@@ -8,7 +8,7 @@ const Header = () => {
   const [authBtnName, setAuthBtnName] = useState('Login');
   const color = useOnlineStatus() ? 'green':'red';
   return (
-    <div className="flex justify-between bg-white shadow-md">
+    <div className="flex justify-between bg-white shadow-md sticky top-0 z-20">
       <div className="mx-2 px-4">
         <Link to={'/'}>
           <img 
