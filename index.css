@@ -10,15 +10,22 @@
   scrollbar-width: none; /* Firefox */
 }
 
-@keyframes shine {
-  0% {
-    background: rgb(201, 198, 198);
-  }
-  100% {
-    background: rgb(179, 176, 176);
-  }
+/* SelectComponent.css */
+
+/* Custom select container */
+.custom-select {
+  position: relative;
+  width: 18%;
 }
 
-.shine-animation {
-  animation: shine 0.5s infinite linear;
+/* Custom arrow */
+.arrow {  
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 30px;
 }
+
+

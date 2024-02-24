@@ -12,17 +12,10 @@ const Body = () => {
   const Restaurants = useRestaurant([]);
   const [restaurantList, setRestaurantList] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-  const [sortBtnName, setSortBtnName] = useState('Fast Delivery');
-  const [costRangeBtn, setCostRangeBtn] = useState('Rs. 300 - Rs. 600');
-  const [foodType, setFoodType] = useState('Pure Veg');
-  const [costLimit, setCostLimit] = useState('Less than Rs. 300');
-  const [btnStatusCr, setBtnStatusCr] = useState('deactive');
-  const [btnStatusPv, setBtnStatusPv] = useState('deactive');
-  const [btnStatusFd, setBtnStatusFd] = useState('deactive');
-  const [btnStatusCl, setBtnStatusCl] = useState('deactive');
   const [search, setSearch] = useState([]);
   const [onMind, setOnMind] = useState([]);
   const [heading, setHeading] = useState([]);
+  const [filterButton, setFilterButton] = useState('');
 
   useEffect(() => {
     const keys = Object.keys(Restaurants);
@@ -40,28 +33,42 @@ const Body = () => {
     }
   }, [Restaurants]);
 
-  const sortByTime = () => {
-    // let sortedListByTime = restaurantList;
-    let sortedListByTime = [...restaurantList];
-    sortedListByTime.sort((a,b) => a.info.sla.deliveryTime - b.info.sla.deliveryTime)
-    setFilteredRestaurant(sortedListByTime);
-    // setFilteredRestaurant([].concat(sortedListByTime));
+  const fileterButtonAction = (buttonName) => {
+    setFilterButton(prevbuttonName => {return prevbuttonName == buttonName ? '' : buttonName});
+
+    if(filterButton !== buttonName && buttonName == 'costLimit') {
+      machedName = restaurantList.filter((res) => {
+        let match = res.info.costForTwo.match(/\d+/);
+        let cost = parseInt(match[0], 10);
+        return cost < 300;
+      });
+      setFilteredRestaurant(machedName);
+    } else if(filterButton !== buttonName && buttonName == 'costRange') {
+      machedName = restaurantList.filter((res) => {
+        let match = res.info.costForTwo.match(/\d+/);
+        let cost = parseInt(match[0], 10);
+        return (cost >= 300 && cost <= 600) ;
+      });
+      setFilteredRestaurant(machedName);
+    } else if(filterButton !== buttonName && buttonName == 'foodType') {
+      machedName = restaurantList.filter((res) => {
+        return res?.info?.veg === true ;
+      });
+      setFilteredRestaurant(machedName);
+    } else if(filterButton !== buttonName && buttonName == 'deliveryType') {
+      let sortedListByTime = [...restaurantList];
+      sortedListByTime.sort((a,b) => a.info.sla.deliveryTime - b.info.sla.deliveryTime)
+      setFilteredRestaurant(sortedListByTime);
+    } else {
+      setFilteredRestaurant([...restaurantList]);
+    }
+
   };
 
-  const unSort = () => {
-    setFilteredRestaurant([...restaurantList]);
-    // setFilteredRestaurant([].concat(restaurantList));
-  }
-
+  const cancelIcon = '&#10006;';
   const TopRatedRestaurant = RestaurantCardWithRating(RestaurantCard);
 
-  const btnStatusCrCol = btnStatusCr == 'deactive' ? '' : 'bg-gray-200';
-  const btnStatusPvCol = btnStatusPv == 'deactive' ? '' : 'bg-gray-200';
-  const btnStatusFdCol = btnStatusFd == 'deactive' ? '' : 'bg-gray-200';
-  const btnStatusClCol = btnStatusCl == 'deactive' ? '' : 'bg-gray-200';
-
   /////////////// scroll ///////////////
-  
   const scroll = (name) => {
     const distance = name === 'scrollForward' ? '400':'-400';
     const container = document.getElementById('scrollContainer');
@@ -70,7 +77,6 @@ const Body = () => {
       behavior: 'smooth'
     });
   };
-
   /////////////// scroll ///////////////
 
   return restaurantList.length ===  0 ? (
@@ -106,7 +112,7 @@ const Body = () => {
       </div>
       <div className="flex p-4 m-4">
         <div className="flex items-center">
-          <input type="text" className="shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200"
+          <input type="text" className="shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200 focus:outline-none"
             placeholder="Search food by name"
             onKeyUp={(e) => {
               let newChar = e.target.value.toLowerCase();
@@ -114,10 +120,11 @@ const Body = () => {
               setFilteredRestaurant(machedName);
             }}
           />
-          <select id="options" name="options" className="shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200" onChange={(e) => {
-            topRatedList = restaurantList.filter((res) => res.info.avgRating > e.target.value);
-            setFilteredRestaurant(topRatedList);
-          }}>
+          <div className="custom-select">
+            <select className="shadow-lg block appearance-none w-48 bg-white border-2 text-gray-700 px-4 py-2.5 mx-2 rounded-lg leading-tight focus:outline-none focus:bg-white focus:shadow-lg" onChange={(e) => {
+              topRatedList = restaurantList.filter((res) => res.info.avgRating > e.target.value);
+              setFilteredRestaurant(topRatedList);
+            }}>
               <option value="">Filter By Ratings</option>
               <option value="5">5</option>
               <option value="4.5">4.5</option>
@@ -125,75 +132,21 @@ const Body = () => {
               <option value="4">4</option>
               <option value="3.5">3.5</option>
               <option value="3">3</option>
-          </select>
-          <button type="button" name={costLimit} className={`${btnStatusClCol} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
-            onClick={() => {
-
-              costLimit == 'Less than Rs. 300' ? setCostLimit('Less than Rs. 300 X'):setCostLimit('Less than Rs. 300');
-              btnStatusCl  == 'deactive' ? setBtnStatusCl("cl-active"):setBtnStatusCl("deactive");
-
-              
-              if(costLimit == 'Less than Rs. 300') {
-                machedName = restaurantList.filter((res) => {
-                  let match = res.info.costForTwo.match(/\d+/);
-                  let cost = parseInt(match[0], 10);
-                  return cost < 300;
-                });
-                setFilteredRestaurant(machedName);
-              } else {
-                unSort();
-              }
-
-            }}
-          >{costLimit}</button>
-          <button type="button" name={costRangeBtn} className={`${btnStatusCrCol} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
-            onClick={() => {
-
-              costRangeBtn == 'Rs. 300 - Rs. 600' ? setCostRangeBtn('Rs. 300 - Rs. 600 X'):setCostRangeBtn('Rs. 300 - Rs. 600');
-              btnStatusCr  == 'deactive' ? setBtnStatusCr("cr-active"):setBtnStatusCr("deactive");
-
-              
-              if(costRangeBtn == 'Rs. 300 - Rs. 600') {
-                machedName = restaurantList.filter((res) => {
-                  let match = res.info.costForTwo.match(/\d+/);
-                  let cost = parseInt(match[0], 10);
-                  return (cost >= 300 && cost <= 600) ;
-                });
-                setFilteredRestaurant(machedName);
-              } else {
-                unSort();
-              }
-
-            }}
-          >{costRangeBtn}</button>
-          <button type="button" name={foodType} className={`${btnStatusPvCol} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
-            onClick={() => {
-
-              foodType == 'Pure Veg' ? setFoodType('Pure Veg X'):setFoodType('Pure Veg');
-              btnStatusPv  == 'deactive' ? setBtnStatusPv("pv-active"):setBtnStatusPv("deactive");
-              if(foodType == 'Pure Veg') {
-                machedName = restaurantList.filter((res) => {
-                  return res?.info?.veg === true ;
-                });
-                setFilteredRestaurant(machedName);
-              } else {
-                unSort();
-              }
-
-            }}
-          >{foodType}</button>
-          <button type="button" name={sortBtnName} className={`${btnStatusFdCol} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
-            onClick={() => {
-              sortBtnName == 'Fast Delivery' ? setSortBtnName('Fast Delivery X'):setSortBtnName('Fast Delivery');
-              btnStatusFd  == 'deactive' ? setBtnStatusFd("fd-active"):setBtnStatusFd("deactive");
-              if(sortBtnName == 'Fast Delivery') {
-                  sortByTime();
-                } else {
-                  // fetchData();
-                  unSort();
-                }
-              }}
-          >{sortBtnName}</button>
+            </select>
+            <div className="arrow"><svg class="h-8 w-8 text-gray-600"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="6 9 12 15 18 9" /></svg></div>
+          </div>
+          <button type="button" className={`${filterButton == 'costLimit' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
+            onClick={() => {fileterButtonAction('costLimit')}}
+          >{filterButton == 'costLimit' ? 'Less than Rs. 300 \u2716': 'Less than Rs. 300'}</button>
+          <button type="button" className={`${filterButton == 'costRange' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
+            onClick={() => {fileterButtonAction('costRange')}}
+          >{filterButton == 'costRange' ? 'Rs. 300 - Rs. 600 \u2716': 'Rs. 300 - Rs. 600'}</button>
+          <button type="button" className={`${filterButton == 'foodType' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
+            onClick={() => {fileterButtonAction('foodType')}}
+          >{filterButton == 'foodType' ? 'Pure Veg \u2716': 'Pure Veg'}</button>
+          <button type="button" className={`${filterButton == 'deliveryType' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
+            onClick={() => {fileterButtonAction('deliveryType')}}
+          >{filterButton == 'deliveryType' ? `Fast Delivery \u2716` : 'Fast Delivery'}</button>
         </div>
       </div>
       <div className="grid grid-cols-5 gap-2 px-4">

@@ -13,8 +13,7 @@ const  useRestaurantDetails = (id) => {
     const resDetails = await fetch(url);
     const details = await resDetails.json();
 
-    setRestaurantDetails(details?.data?.cards[0]?.card?.card?.info);
-    
+    setRestaurantDetails(details?.data);
   };
   return restuarantDetail;
 };
