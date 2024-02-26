@@ -1,9 +1,10 @@
 import RestaurantCard, { RestaurantCardWithRating }from "./RestuarantCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import OnMind from "./OnMind";
 import useRestaurant from "../utils/custom_hooks/useRestaurant";
+import UserContext from "../utils/UserContext";
 // import {data} from '../utils/mockData';
 
 const Body = () => {
@@ -16,6 +17,7 @@ const Body = () => {
   const [onMind, setOnMind] = useState([]);
   const [heading, setHeading] = useState([]);
   const [filterButton, setFilterButton] = useState('');
+  const {loggedInUser, setUserName} = useContext(UserContext);
 
   useEffect(() => {
     const keys = Object.keys(Restaurants);
@@ -107,47 +109,62 @@ const Body = () => {
           }
         </div>
       </div>
-     <div className="p-4 m-2">
+     <div className="p-4 m-2 flex justify-between">
         <h1 className="text-[30px] font-bold">Restaurants with online food delivery</h1>
-      </div>
-      <div className="flex p-4 m-4">
         <div className="flex items-center">
+          <label className="font-bold">Context example</label>
           <input type="text" className="shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200 focus:outline-none"
-            placeholder="Search food by name"
-            onKeyUp={(e) => {
-              let newChar = e.target.value.toLowerCase();
-              machedName = restaurantList.filter((res) => res.info.name.toLowerCase().includes(newChar));
-              setFilteredRestaurant(machedName);
+              value={loggedInUser}
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
+            />
+        </div>
+      </div>
+      <div className="flex p-4 m-4 items-center">
+        <input type="text" className="shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200 focus:outline-none"
+          placeholder="Search food by name"
+          onKeyUp={(e) => {
+            let newChar = e.target.value.toLowerCase();
+            machedName = restaurantList.filter((res) => res.info.name.toLowerCase().includes(newChar));
+            setFilteredRestaurant(machedName);
+          }}
+        />
+        <div className="custom-select">
+          <select className="shadow-lg block appearance-none w-56 bg-white border-2 text-gray-700 px-4 py-2.5 mx-2 rounded-lg leading-tight focus:outline-none focus:bg-white focus:shadow-lg" onChange={(e) => {
+            topRatedList = restaurantList.filter((res) => res.info.avgRating > e.target.value);
+            setFilteredRestaurant(topRatedList);
+          }}>
+            <option value="">Filter By Ratings</option>
+            <option value="5">5</option>
+            <option value="4.5">4.5</option>
+            <option value="4.2">4.2</option>
+            <option value="4">4</option>
+            <option value="3.5">3.5</option>
+            <option value="3">3</option>
+          </select>
+          {/* <div className="arrow"> */}
+            <svg className="arrow h-8 w-8 text-gray-600"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="6 9 12 15 18 9" /></svg>
+            {/* </div> */}
+        </div>
+        <button type="button" className={`${filterButton == 'costLimit' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
+          onClick={() => {fileterButtonAction('costLimit')}}
+        >{filterButton == 'costLimit' ? 'Less than Rs. 300 \u2716': 'Less than Rs. 300'}</button>
+        <button type="button" className={`${filterButton == 'costRange' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
+          onClick={() => {fileterButtonAction('costRange')}}
+        >{filterButton == 'costRange' ? 'Rs. 300 - Rs. 600 \u2716': 'Rs. 300 - Rs. 600'}</button>
+        <button type="button" className={`${filterButton == 'foodType' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
+          onClick={() => {fileterButtonAction('foodType')}}
+        >{filterButton == 'foodType' ? 'Pure Veg \u2716': 'Pure Veg'}</button>
+        <button type="button" className={`${filterButton == 'deliveryType' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
+          onClick={() => {fileterButtonAction('deliveryType')}}
+        >{filterButton == 'deliveryType' ? `Fast Delivery \u2716` : 'Fast Delivery'}</button>
+        <input type="text" className="shadow-lg border-2 px-4 py-2 ml-2 rounded-lg hover:bg-gray-200 focus:outline-none"
+            value={loggedInUser}
+            onChange={(e) => {
+              setUserName(e.target.value);
             }}
           />
-          <div className="custom-select">
-            <select className="shadow-lg block appearance-none w-48 bg-white border-2 text-gray-700 px-4 py-2.5 mx-2 rounded-lg leading-tight focus:outline-none focus:bg-white focus:shadow-lg" onChange={(e) => {
-              topRatedList = restaurantList.filter((res) => res.info.avgRating > e.target.value);
-              setFilteredRestaurant(topRatedList);
-            }}>
-              <option value="">Filter By Ratings</option>
-              <option value="5">5</option>
-              <option value="4.5">4.5</option>
-              <option value="4.2">4.2</option>
-              <option value="4">4</option>
-              <option value="3.5">3.5</option>
-              <option value="3">3</option>
-            </select>
-            <div className="arrow"><svg class="h-8 w-8 text-gray-600"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="6 9 12 15 18 9" /></svg></div>
-          </div>
-          <button type="button" className={`${filterButton == 'costLimit' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
-            onClick={() => {fileterButtonAction('costLimit')}}
-          >{filterButton == 'costLimit' ? 'Less than Rs. 300 \u2716': 'Less than Rs. 300'}</button>
-          <button type="button" className={`${filterButton == 'costRange' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
-            onClick={() => {fileterButtonAction('costRange')}}
-          >{filterButton == 'costRange' ? 'Rs. 300 - Rs. 600 \u2716': 'Rs. 300 - Rs. 600'}</button>
-          <button type="button" className={`${filterButton == 'foodType' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
-            onClick={() => {fileterButtonAction('foodType')}}
-          >{filterButton == 'foodType' ? 'Pure Veg \u2716': 'Pure Veg'}</button>
-          <button type="button" className={`${filterButton == 'deliveryType' && 'bg-gray-200'} shadow-lg border-2 px-4 py-2 mx-2 rounded-lg hover:bg-gray-200`}
-            onClick={() => {fileterButtonAction('deliveryType')}}
-          >{filterButton == 'deliveryType' ? `Fast Delivery \u2716` : 'Fast Delivery'}</button>
-        </div>
       </div>
       <div className="grid grid-cols-5 gap-2 px-4">
         {/* {filteredRestaurant.map((restaurant) => (

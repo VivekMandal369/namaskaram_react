@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { logo } from '../utils/constants';
 import { useState } from 'react';
 import useOnlineStatus from '../utils/custom_hooks/useOnlineStatus';
+import UserContext from '../utils/UserContext';
 
 const Header = () => {
   const [authBtnName, setAuthBtnName] = useState('Login');
+  const {loggedInUser} = useContext(UserContext);
   const color = useOnlineStatus() ? 'green':'red';
   return (
     <div className="flex justify-between bg-white shadow-md sticky top-0 z-20">
@@ -24,6 +26,7 @@ const Header = () => {
             <li className="mx-2 whitespace-nowrap"><Link to={'about'}>About Us</Link></li>
             <li className="mx-2 whitespace-nowrap"><Link to={'/contact'}>Contact Us</Link></li>
             <li className="mx-2 whitespace-nowrap"><Link to={'/cart'}>Cart</Link></li>
+            <li className="mx-2 whitespace-nowrap font-bold">{loggedInUser}</li>
           </ul>
         </div>
         <div className="flex">
