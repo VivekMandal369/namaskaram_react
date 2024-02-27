@@ -17,17 +17,19 @@ const Restaurant = lazy(() => import("./components/Restaurant"));
 
 const AppLayout = () => {
   const [userName, setUserName] = useState();
+  const [userImage, setUserImage] = useState();
 
   useEffect(() => {
     const data = {
-      name: 'Vivek'
+      name: 'Itsvivekmandal'
     };
 
     setUserName(data.name);
+    setUserImage('https://avatar.iran.liara.run/public/boy?username=Ash');
   }, []);
 
   return (
-    <UserContext.Provider value={{loggedInUser: userName, setUserName}}>
+    <UserContext.Provider value={{loggedInUser: userName,avatar: userImage, setUserName, setUserImage}}>
       <div className="app">
         <Header />
         <Outlet />
@@ -51,8 +53,8 @@ const appRouter = createBrowserRouter([
       },
       {
         path:'/about',
-        element: <Suspense><About/></Suspense>
-        // element: <Suspense fallback={<Shimmer/>}><About/></Suspense>
+        // element: <Suspense><About/></Suspense>
+        element: <Suspense fallback={<Shimmer/>}><About/></Suspense>
       },
       {
         path:'/restaurant/:id',
