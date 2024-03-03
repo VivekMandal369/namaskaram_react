@@ -1,29 +1,8 @@
 import { useState } from "react";
 import {productImgPath} from "../utils/constants";
-
-const MenuItems = (props) => {
-  const {data} = props;
-  const {price, name, defaultPrice, offerTags, imageId, isVeg, category} = data;
-  const finalPrice = price ? price: defaultPrice;
-  const veg = isVeg ? 'green':'red';
-  const offer = offerTags ? `${offerTags[0].title} | ${offerTags[0].subTitle}` : '';
-  return (
-    <div className="flex py-6 justify-between border-b-2 border-gray-200">
-      <div className="grid">
-        <svg width="35" height="35" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="10" cy="10" r="5" fill={veg} />
-          <rect x="0" y="0" width="20" height="20" fill="none" stroke={veg} strokeWidth="1"/>
-        </svg>
-        <span>{name}</span>
-        <div className="flex items-center">
-          <span>₹{finalPrice/100}</span>
-          <span className="text-sm mx-2 px-2 rounded-lg border-red-500 border-l-4 bg-red-300">{offer}</span>
-        </div>
-      </div>
-      <img src={productImgPath + imageId} alt="img" className="w-24"></img>
-    </div>
-  );
-};
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/CartSlice";
+import MenuItem from "./MenuItem";
 
 const Menu = (props) => {
   const {menu, accordionAction, accordionStatus} = props;
@@ -49,7 +28,7 @@ const Menu = (props) => {
         (accordionStatus.title == title && accordionStatus.isOpen) && 
         <>
           {items.map(item => (
-            <MenuItems key={item?.card?.info?.id} data={item?.card?.info} />
+            <MenuItem key={item?.card?.info?.id} data={item?.card?.info}/>
             ))
           }
         </>
