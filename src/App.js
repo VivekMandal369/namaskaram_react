@@ -10,6 +10,9 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Shimmer from "../src/components/Shimmer";
 import Dish from "./components/Dish";
 import UserContext from "./utils/UserContext";
+import Cart from "./components/Cart";
+import Store from "./utils/Store";
+import { Provider } from "react-redux";
 // import UserContext from "./utils/UserContext";
 
 const About = lazy(() => import("./components/About"));
@@ -28,13 +31,16 @@ const AppLayout = () => {
     setUserImage('https://avatar.iran.liara.run/public/boy?username=Ash');
   }, []);
 
+  // console.log(Store);
   return (
-    <UserContext.Provider value={{loggedInUser: userName,avatar: userImage, setUserName, setUserImage}}>
-      <div className="app">
-        <Header />
-        <Outlet />
-      </div>
-    </UserContext.Provider>
+    <Provider store={Store}>
+      <UserContext.Provider value={{loggedInUser: userName,avatar: userImage, setUserName, setUserImage}}>
+        <div className="app">
+          <Header />
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   )
 };
 
@@ -63,6 +69,10 @@ const appRouter = createBrowserRouter([
       {
         path: '/dish/:id',
         element: <Dish/>
+      },
+      {
+        path: '/cart',
+        element: <Cart/>
       }
     ],
     errorElement: <Error />

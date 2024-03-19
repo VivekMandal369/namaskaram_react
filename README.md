@@ -1,5 +1,5 @@
 # Namaskaram React! 🚀 
-# Parcel
+## Parcel
 - Dev Build
 - Local Server
 - HMR = Hot Module Replacement
@@ -14,24 +14,46 @@
 - Differential Bundling - to support older browsers
 - Tree Shaking - remove unused code
 
-// APP Structure
-* Header
-* - Logo
-* - Nav Items
-* Body
-* - Search
-* - Restaurant Container
-*   - Restaurant Card
-*     - Restaurant Name, Rating
-*     - Dish Name, Price
-*     - Time
-* Footer
-* - Copyright
-* - Links 
-* - Address
-* - Contact
+## APP Structure
+### Header
+* Logo
+* Nav Items
+### Body
+* Search
+* Restaurant Container
+* Restaurant Card
+*  - Restaurant Name, Rating
+*  - Dish Name, Price
+*  - Time
+### Footer
+* Copyright
+* Links 
+* Address
+* Contact
 
-# Questions
+## React Toolkit
+* Install @reduxjs/toolkit and react-redux
+* Build our store
+* Connect our store to our app
+* Slice (cartSlice)
+* Dispatch (action)
+* Selector
+
+## Types of testing (developer)
+* Unit Testing
+* Integration Testing
+* End to End Testing (e2e Testing)
+
+## Testing Setup
+* Install React Testing Library
+* Installed jest
+* Installed Babel Depedencies
+* Configure Babel
+* Configure Parcel Config file to disable default babel transpilation
+* Jest Configuration (npx jest --init)
+* Install Jsdom Library
+
+## Questions
 1. What is React?
 2. Why React is fast?
 3. What is bundles in React?
